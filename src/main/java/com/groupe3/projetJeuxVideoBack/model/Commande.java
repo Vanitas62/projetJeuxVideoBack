@@ -16,9 +16,6 @@ import javax.persistence.Version;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
-@NamedQuery(
-name="Commande.findByIdClient",
-query="select c from Commande c where c.idClient = :idClient")
 public class Commande {
 
 	@Id

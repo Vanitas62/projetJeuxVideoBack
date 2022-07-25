@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.groupe3.projetJeuxVideoBack.model.Commande;
 import com.groupe3.projetJeuxVideoBack.model.JsonViews;
 import com.groupe3.projetJeuxVideoBack.repo.CommandeRepository;
+import com.groupe3.projetJeuxVideoBack.repo.UserRepository;
 
 
 @RestController
@@ -28,6 +29,8 @@ public class CommandeRestController {
 	
 	@Autowired
 	private CommandeRepository repo;
+	@Autowired
+	private UserRepository repoUser;
 	
 	@GetMapping("")
 	@JsonView(JsonViews.CommandeWithUser.class)
@@ -35,18 +38,18 @@ public class CommandeRestController {
 		return repo.findAll();
 	}
 	
-	@GetMapping("{id}")
+	@GetMapping("/numero/{id}")
 	@JsonView(JsonViews.CommandeWithUser.class)
 	public Commande findById(@PathVariable(name="id") int id)
 	{
 		return repo.findById(id).get();
 	}
 	
-	@GetMapping("/commande/{idClient}")
+	@GetMapping("{idClient}")
 	@JsonView(JsonViews.CommandeWithUser.class)
-	public List<Commande> findByIdClient(@PathVariable(name="idClient") String idClient)
+	public List<Commande> findByClient(@PathVariable(name="idClient") String idClient)
 	{
-		//return (List<Commande>) repo.findByIdClient(idClient);
+		return repo.findByIdClient(repoUser.findById(idClient).get());
 	}
 	
 	@PostMapping("")
