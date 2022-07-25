@@ -6,30 +6,48 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
+@NamedQuery(
+name="Commande.findByIdClient",
+query="select c from Commande c where c.idClient = :idClient")
 public class Commande {
 
 	@Id
+	@JsonView(JsonViews.Common.class)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String idClient;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_client")
+	@JsonView(JsonViews.CommandeWithUser.class)
+	private User idClient;
+	
 	@Temporal(TemporalType.TIMESTAMP)
+	@JsonView(JsonViews.Common.class)
 	private Date date;
+	@JsonView(JsonViews.Common.class)
 	private double prixTotal;
+	@JsonView(JsonViews.Common.class)
 	private String infos;
 
 	@Version
+	@JsonView(JsonViews.Common.class)
 	private int version;
 
 	public Commande() {
 		super();
 	}
 
-	public Commande(int id, String idClient, Date date, double prixTotal, String infos) {
+	public Commande(int id, User idClient, Date date, double prixTotal, String infos) {
 		super();
 		this.id = id;
 		this.idClient = idClient;
@@ -46,11 +64,11 @@ public class Commande {
 		this.id = id;
 	}
 
-	public String getIdClient() {
+	public User getIdClient() {
 		return idClient;
 	}
 
-	public void setIdClient(String idClient) {
+	public void setIdClient(User idClient) {
 		this.idClient = idClient;
 	}
 
