@@ -30,9 +30,9 @@ public class User {
 	@NotEmpty (message = "Veuillez renseigner votre adresse")
 	private String adresse;
 	@JsonView(JsonViews.Common.class)
-	private Boolean isAdmin;
+	private Boolean isAdmin = false;
 	@JsonView(JsonViews.Common.class)
-	private Boolean isBanned;
+	private Boolean isBanned = false;
 	
 	@JsonView(JsonViews.UserWithCommande.class)
 	@OneToMany(mappedBy = "idClient")
