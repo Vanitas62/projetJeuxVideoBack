@@ -56,14 +56,14 @@ public class CommandeRestController {
 	public String create(@RequestBody Commande c)
 	{
 		repo.save(c);
-		return "Commande créée !";
+		return null;
 	}
 	
 	@PutMapping("")
 	public String update(@RequestBody Commande c)
 	{
 		repo.save(c);
-		return "Commande modifiée !";
+		return null;
 	}
 	
 	@DeleteMapping("{id}")

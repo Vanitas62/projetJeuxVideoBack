@@ -2,9 +2,12 @@ package com.groupe3.projetJeuxVideoBack.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +38,12 @@ public class UserRestController {
 		return repo.findAll();
 	}
 	
+	@GetMapping("/user/{username}")
+	@JsonView(JsonViews.UserWithCommande.class)
+	public User findById(@PathVariable(name = "username") String username) {
+		return repo.findById(username).get();
+	}
+	
 	@GetMapping("{username}/{password}")
 	@JsonView(JsonViews.UserWithCommande.class)
 	public User findByUsernameAndPassword(@PathVariable(name = "username") String username,@PathVariable(name = "password") String password) {
@@ -42,15 +51,23 @@ public class UserRestController {
 	}
 	
 	@PostMapping("")
-	public String create(@RequestBody User u) {
-		repo.save(u);
-		return "Utilisateur créé !";
+	public String create(@Valid @RequestBody User u) {
+		
+		if(repo.findById(u.getUsername()).isPresent())
+        {
+        	return null;
+        }
+		else
+		{
+			repo.save(u);
+			return null;
+		}
 	}
 	
 	@PutMapping("")
 	public String update(@RequestBody User u) {
 		repo.save(u);
-		return "Utilisateur modifié !";
+		return null;
 	}
 	
 	@DeleteMapping("{username}")

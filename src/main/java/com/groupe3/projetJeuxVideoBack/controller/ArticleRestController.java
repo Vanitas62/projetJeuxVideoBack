@@ -43,14 +43,14 @@ public class ArticleRestController {
 	public String create(@RequestBody Article a)
 	{
 		repo.save(a);
-		return "Article créé !";
+		return null;
 	}
 	
 	@PutMapping("")
 	public String update(@RequestBody Article a)
 	{
 		repo.save(a);
-		return "Article modifié !";
+		return null;
 	}
 	
 	@DeleteMapping("{id}")
