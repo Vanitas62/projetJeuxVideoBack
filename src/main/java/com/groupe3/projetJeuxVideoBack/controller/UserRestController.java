@@ -73,7 +73,7 @@ public class UserRestController {
 	@DeleteMapping("{username}")
 	public ResponseEntity<String> delete(@PathVariable(name = "username") String username) {
 		repo.delete(repo.findById(username).get());
-		return new ResponseEntity<String>("Utilisateur supprimé !", HttpStatus.I_AM_A_TEAPOT);
+		return null;
 	}
 
 }

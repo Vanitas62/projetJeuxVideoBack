@@ -71,7 +71,7 @@ public class CommandeRestController {
 	{
 		repo.delete(repo.findById(id).get());
 		
-		return new ResponseEntity<String>("Commande supprimée !", HttpStatus.I_AM_A_TEAPOT);
+		return null;
 	}
 
 }

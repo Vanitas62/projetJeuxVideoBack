@@ -58,7 +58,7 @@ public class ArticleRestController {
 	{
 		repo.delete(repo.findById(id).get());
 		
-		return new ResponseEntity<String>("article supprimé !", HttpStatus.I_AM_A_TEAPOT);
+		return null;
 	}
 
 }
